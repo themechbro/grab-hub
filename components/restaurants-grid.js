@@ -3,6 +3,7 @@ import { Typography } from "@mui/joy";
 import { Paper, CircularProgress, Alert } from "@mui/material";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function RestaurantsGrid() {
   const [restaurants, setRestaurants] = useState([]);
@@ -26,7 +27,7 @@ export default function RestaurantsGrid() {
 
   useEffect(() => {
     fetchRestaurants();
-  }, []); // ✅ Empty array to run only once
+  }, []);
 
   if (loading) return <CircularProgress />;
   if (error) return <Alert severity="error">{error}</Alert>;
@@ -38,26 +39,29 @@ export default function RestaurantsGrid() {
           key={restaurant.id}
           className="p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-100"
         >
-          <Image
-            src={restaurant.imageUrl}
-            alt={restaurant.name}
-            width={300}
-            height={200}
-            className="rounded-md mb-2"
-          />
-          <Typography level="title-md" className="font-bold">
-            {restaurant.name}
-          </Typography>
-          <div className="flex justify-between text-sm mb-2">
-            <span className="text-yellow-500">
-              ★ {restaurant.userRating.rating}
-            </span>
-            <span className="text-gray-500">
-              {restaurant.costForTwo} for two
-            </span>
-          </div>
-          <p className="text-gray-600 text-sm mb-2">{restaurant.cuisine}</p>
-          <p className="text-blue-600 text-xs">{restaurant.location}</p>
+          <Link href={`/viewRestaurant/${restaurant.id}`}>
+            <Image
+              src={restaurant.imageUrl}
+              alt={restaurant.name}
+              width={300}
+              height={200}
+              className="rounded-md mb-2"
+            />
+
+            <Typography level="title-md" className="font-bold">
+              {restaurant.name}
+            </Typography>
+            <div className="flex justify-between text-sm mb-2">
+              <span className="text-yellow-500">
+                ★ {restaurant.userRating.rating}
+              </span>
+              <span className="text-gray-500">
+                {restaurant.costForTwo} for two
+              </span>
+            </div>
+            <p className="text-gray-600 text-sm mb-2">{restaurant.cuisine}</p>
+            <p className="text-blue-600 text-xs">{restaurant.location}</p>
+          </Link>
         </Paper>
       ))}
     </div>
