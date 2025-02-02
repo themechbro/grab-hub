@@ -6,7 +6,7 @@ export async function GET() {
     const LIMIT = 8;
     const offset = (currPage - 1) * LIMIT;
     const response = await fetch(
-      `https://apis.ccbp.in/restaurants-list?offset=${offset}&limit=${LIMIT}`,
+      `https://apis.ccbp.in/restaurants-list?offset=${offset}&limit=${LIMIT}&sort_by_rating=Lowest`,
       {
         headers: {
           "Content-Type": "application/json",

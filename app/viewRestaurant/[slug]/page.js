@@ -1,9 +1,10 @@
 "use client";
-import { Typography } from "@mui/joy";
+import { Divider, Typography } from "@mui/joy";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import BannerPlusDetail from "./banner-plus-detail";
 import Offers from "./offers";
+import DishesGrid from "./dishes-grid";
 
 export default function ViewRestaurantSlug() {
   const path = usePathname().split("/")[2];
@@ -46,8 +47,11 @@ export default function ViewRestaurantSlug() {
 
   return (
     <div className="flex flex-col  min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <div>
-        <Typography level="h3">{restaurant.name}</Typography>
+      <div className="p-2">
+        <Typography level="h3" sx={{ mb: 2 }}>
+          {restaurant.name}
+        </Typography>
+        <Divider />
       </div>
 
       {/* banner plus details */}
@@ -57,6 +61,10 @@ export default function ViewRestaurantSlug() {
 
       <div className="offers">
         <Offers />
+      </div>
+
+      <div className="dishes-grid">
+        <DishesGrid foodData={restaurant.food_items} />
       </div>
 
       {/* Add more restaurant details as needed */}
